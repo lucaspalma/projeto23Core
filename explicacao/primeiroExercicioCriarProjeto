@@ -1,0 +1,6 @@
+Comando do terminal para criar um projeto
+    
+    dotnet new mvc -n blog -lang C#
+
+    Fonte https://docs.microsoft.com/pt-br/dotnet/core/tools/dotnet-new?tabs=netcore2x
+
