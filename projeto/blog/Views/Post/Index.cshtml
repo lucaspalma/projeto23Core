@@ -1,3 +1,4 @@
+@model IList<blog.Models.Post>
 <html>
 <head></head>
 <body>
@@ -11,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var post in ViewBag.Posts) {
+            @foreach(var post in Model) {
                 <tr>
                     <td>@post.Titulo</td>
                     <td>@post.Resumo</td>

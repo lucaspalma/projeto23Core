@@ -1,4 +1,4 @@
-namespace projetos.dotnet.blogCore.projeto.blog.Models
+namespace blog.Models
 {
     public class Post
     {

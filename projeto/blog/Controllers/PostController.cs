@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using projetos.dotnet.blogCore.projeto.blog.Models;
+using blog.Models;
 
 namespace projetos.dotnet.blogCore.projeto.blog.Controllers
 {
@@ -13,8 +13,7 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
             lista.Add(new Post() { Titulo = "Cassino Royale", Resumo = "007", Categoria = "Filme" });
             lista.Add(new Post() { Titulo = "Monge e o Executivo", Resumo = "Romance sobre Liderança", Categoria = "Livro" });
             lista.Add(new Post() { Titulo = "New York, New York", Resumo = "Sucesso de Frank Sinatra", Categoria = "Música" });
-            ViewBag.Posts = lista;
-            return View();    
+            return View(lista);
         }
 
     }
