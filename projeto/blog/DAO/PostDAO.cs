@@ -28,6 +28,14 @@ namespace blog.DAO
             }
             return posts;
         }
-
+        public void Adiciona(Post post)
+        {
+            using (SqlConnection connection = ConnectionFactory.CriaConexaoAberta())
+            {
+                SqlCommand comando = connection.CreateCommand();
+                comando.CommandText = "insert into Posts (Titulo, Resumo, Categoria) values ('"+post.Titulo+"','"+post.Resumo+"','"+post.Categoria+"')";
+                comando.ExecuteNonQuery();
+            }
+        }
     }
 }
