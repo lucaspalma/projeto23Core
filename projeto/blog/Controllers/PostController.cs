@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using blog.Models;
+using blog.Infra;
 
 namespace projetos.dotnet.blogCore.projeto.blog.Controllers
 {
@@ -18,6 +19,7 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
         }
 
         public IActionResult Index() {
+            ConnectionFactory.CriaConexaoAberta();
             return View(lista);
         }
 

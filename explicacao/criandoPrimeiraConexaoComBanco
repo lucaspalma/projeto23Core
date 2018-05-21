@@ -1,0 +1,6 @@
+MySql
+    dotnet add package Pomelo.EntityFrameworkCore.MySql --version 2.0.1
+
+
+ConfigurationManager
+    dotnet add package System.Configuration.ConfigurationManager --version 4.4.1
