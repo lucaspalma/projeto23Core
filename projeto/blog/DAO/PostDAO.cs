@@ -27,6 +27,14 @@ namespace blog.DAO
             }
             return posts;
         }
-
+        public void Adiciona(Post post)
+        {
+            using (MySqlConnection connection = ConnectionFactory.CriaConexaoAberta())
+            {
+                MySqlCommand comando = connection.CreateCommand();
+                comando.CommandText = "insert into Posts (Titulo, Resumo, Categoria) values ('"+post.Titulo+"','"+post.Resumo+"','"+post.Categoria+"')";
+                comando.ExecuteNonQuery();
+            }
+        }
     }
 }
