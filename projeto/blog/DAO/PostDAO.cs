@@ -32,7 +32,10 @@ namespace blog.DAO
             using (MySqlConnection connection = ConnectionFactory.CriaConexaoAberta())
             {
                 MySqlCommand comando = connection.CreateCommand();
-                comando.CommandText = "insert into Posts (Titulo, Resumo, Categoria) values ('"+post.Titulo+"','"+post.Resumo+"','"+post.Categoria+"')";
+                comando.CommandText = "insert into Posts (Titulo, Resumo, Categoria) values (@titulo, @resumo, @categoria)";
+                comando.Parameters.Add(new MySqlParameter("titulo", post.Titulo));
+                comando.Parameters.Add(new MySqlParameter("resumo", post.Resumo));
+                comando.Parameters.Add(new MySqlParameter("categoria", post.Categoria));
                 comando.ExecuteNonQuery();
             }
         }
