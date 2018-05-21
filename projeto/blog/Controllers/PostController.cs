@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using blog.Models;
 using blog.Infra;
+using blog.DAO;
 
 namespace projetos.dotnet.blogCore.projeto.blog.Controllers
 {
@@ -19,8 +20,9 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
         }
 
         public IActionResult Index() {
-            ConnectionFactory.CriaConexaoAberta();
-            return View(lista);
+            PostDAO dao = new PostDAO();
+            IList<Post> posts = dao.Lista();
+            return View(posts);
         }
 
         public IActionResult Novo() {
