@@ -25,6 +25,7 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
             return View();
         }
 
+        [HttpPost]
         public IActionResult Adiciona(Post post) {
             lista.Add(post);
             return View("Index", lista);
