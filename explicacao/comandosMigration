@@ -1,0 +1,7 @@
+http://www.entityframeworktutorial.net/efcore/cli-commands-for-ef-core-migration.aspx
+
+dotnet ef migrations add Nome
+
+dotnet ef database update
+
+dotnet ef migrations remove

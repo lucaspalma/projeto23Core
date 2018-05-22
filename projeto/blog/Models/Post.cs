@@ -1,3 +1,5 @@
+using System;
+
 namespace blog.Models
 {
     public class Post
@@ -9,6 +11,10 @@ namespace blog.Models
         public string Resumo { get; set; }
 
         public string Categoria { get; set; }
+
+        public DateTime? DataPublicacao { get; set; }
+        
+        public bool Publicado { get; set; }
 
     }
 }
