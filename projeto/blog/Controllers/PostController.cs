@@ -26,5 +26,11 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Categoria([Bind(Prefix="id")] string categoria) {
+            PostDAO dao = new PostDAO();
+            IList<Post> posts = dao.FiltraPorCategoria(categoria);
+            return View("Index", posts);
+        }
+
     }
 }
