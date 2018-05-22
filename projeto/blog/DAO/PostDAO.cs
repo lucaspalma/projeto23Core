@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using blog.Infra;
 using blog.Models;
+using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 
 namespace blog.DAO
@@ -28,6 +29,30 @@ namespace blog.DAO
         public IList<Post> FiltraPorCategoria(string categoria) {
             using(BlogContext contexto = new BlogContext()) {
                 return contexto.Posts.Where(post => post.Categoria.Contains(categoria)).ToList();
+            }
+        }
+
+        public Post BuscaPorId(int id) {
+            using (BlogContext contexto = new BlogContext())
+            {
+                return contexto.Posts.Find(id);
+            }
+        }
+
+        public void Remove(int id) {
+            using (BlogContext contexto = new BlogContext())
+            {
+                Post post = contexto.Posts.Find(id);
+                contexto.Posts.Remove(post);
+                contexto.SaveChanges();
+            }
+        }
+
+        public void Atualiza(Post post) {
+            using (BlogContext contexto = new BlogContext())
+            {
+                contexto.Entry(post).State = EntityState.Modified;
+                contexto.SaveChanges();
             }
         }
     }
