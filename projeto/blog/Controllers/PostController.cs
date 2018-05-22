@@ -52,5 +52,12 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult PublicaPost(int id) {
+            PostDAO dao = new PostDAO();
+            dao.Publica(id);
+            return RedirectToAction("Index");
+        }
+
     }
 }
