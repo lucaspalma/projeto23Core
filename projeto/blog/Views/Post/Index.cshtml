@@ -14,9 +14,12 @@
         <tbody>
             @foreach(var post in Model) {
                 <tr>
-                    <td>@post.Titulo</td>
+                    <td><a href="/Post/Visualiza/@post.Id">@post.Titulo</a></td>
                     <td>@post.Resumo</td>
                     <td>@post.Categoria</td>
+                    <td>
+                        <a  href="/Post/RemovePost/@post.Id">Remover</a>
+                    </td>
                 </tr>
             }
         </tbody>

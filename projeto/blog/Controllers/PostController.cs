@@ -32,5 +32,25 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
             return View("Index", posts);
         }
 
+        [HttpGet]
+        public IActionResult RemovePost(int id) {
+            PostDAO dao = new PostDAO();
+            dao.Remove(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Visualiza(int id) {
+            PostDAO dao = new PostDAO();
+            return View(dao.BuscaPorId(id));
+        }
+
+        [HttpPost]
+        public IActionResult EditaPost(Post post) {
+            PostDAO dao = new PostDAO();
+            dao.Atualiza(post);
+            return RedirectToAction("Index");
+        }
+
     }
 }
