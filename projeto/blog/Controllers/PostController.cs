@@ -16,14 +16,17 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
         }
 
         public IActionResult Novo() {
-            return View();
+            return View(new Post());
         }
 
         [HttpPost]
         public IActionResult Adiciona(Post post) {
-            PostDAO dao = new PostDAO();
-            dao.Adiciona(post);
-            return RedirectToAction("Index");
+            if(ModelState.IsValid) {
+                PostDAO dao = new PostDAO();
+                dao.Adiciona(post);
+                return RedirectToAction("Index");
+            }
+            return View("Novo", post);
         }
 
         public IActionResult Categoria([Bind(Prefix="id")] string categoria) {
@@ -47,9 +50,12 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
 
         [HttpPost]
         public IActionResult EditaPost(Post post) {
-            PostDAO dao = new PostDAO();
-            dao.Atualiza(post);
-            return RedirectToAction("Index");
+            if(ModelState.IsValid) {
+                PostDAO dao = new PostDAO();
+                dao.Atualiza(post);
+                return RedirectToAction("Index");
+            }
+            return View("Visualiza", post);
         }
 
         [HttpGet]
