@@ -16,6 +16,15 @@ namespace blog.DAO
                 return contexto.Posts.ToList();
             }
         }
+
+        public IList<Post> ListaPublicados()
+        {
+            using (BlogContext contexto = new BlogContext())
+            {
+                return contexto.Posts.Where(p => p.Publicado).OrderByDescending(p => p.DataPublicacao).ToList();
+            }
+        }
+
         public void Adiciona(Post post)
         {
             using (BlogContext contexto = new BlogContext())

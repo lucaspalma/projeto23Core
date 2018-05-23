@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using blog.DAO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace blog.Controllers
@@ -11,7 +12,8 @@ namespace blog.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            PostDAO dao = new PostDAO();
+            return View(dao.ListaPublicados());
         }
 
     }
