@@ -1,6 +1,8 @@
 @model blog.Models.Post
 <html>
-<head></head>
+<head>
+    <link href="~/lib/jquery-ui/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+</head>
 <body>
     <h2>Cadastro de Post</h2>
     
@@ -13,5 +15,18 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+    <script>
+        $("input[name='Categoria']").autocomplete({
+            source: function (request, response) {
+                $.post(
+                    "@Url.Action("CategoriaAutocomplete")",
+                    { termoDigitado: request.term },
+                    function (data) {
+                        response(data);
+                    });
+            }
+        });
+     </script>
 </body>
 </html>

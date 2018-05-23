@@ -66,5 +66,13 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult CategoriaAutocomplete(string termoDigitado)
+        {
+            PostDAO dao = new PostDAO();
+            var model = dao.ListaCategoriasQueContemTermo(termoDigitado);
+            return Json(model);
+        }
+
     }
 }
