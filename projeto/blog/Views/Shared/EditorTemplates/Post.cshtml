@@ -1,0 +1,11 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model blog.Models.Post
+<label asp-for="Titulo"></label>
+<input asp-for="Titulo"/>
+<span asp-validation-for="Titulo"></span>
+<label asp-for="Resumo"></label>
+<input asp-for="Resumo"/>
+<span asp-validation-for="Resumo"></span>
+<label asp-for="Categoria"></label>
+<input asp-for="Categoria"/>
+<span asp-validation-for="Categoria"></span>
