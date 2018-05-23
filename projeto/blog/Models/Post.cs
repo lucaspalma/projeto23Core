@@ -9,6 +9,7 @@ namespace blog.Models
 
         [Required]
         [StringLength(50)]
+        [Display(Name="Título")]
         public string Titulo { get; set; }
 
         [Required]
@@ -16,6 +17,7 @@ namespace blog.Models
 
         public string Categoria { get; set; }
 
+	    [Display(Name="Data de publicação")]
         public DateTime? DataPublicacao { get; set; }
         
         public bool Publicado { get; set; }

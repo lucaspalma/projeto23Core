@@ -1,29 +1,25 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model blog.Models.Post
 <html>
 <head></head>
 <body>
-    <div>
-    <form action="/Post/EditaPost" method="post">
-        <input type="hidden" name="id" value="@Model.Id" />
-        <label>
-         Título: <input name="titulo" value="@Model.Titulo" maxlength="50" required/>
-        </label>
-        @Html.ValidationMessage("titulo")
-        <label>
-          Resumo: <input name="resumo" value="@Model.Resumo" required/>
-        </label>
-        @Html.ValidationMessage("resumo")
-        <label>
-          Categoria: <input name="categoria" value="@Model.Categoria" />
-        </label>
-        @Html.ValidationMessage("categoria")
-        <button type="submit">Cadastrar</button>
-    </form>
-    </div>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script>
-	    $("form").validate();
-    </script>
+  <form asp-controller="Post" asp-action="EditaPost" method="post">
+    <input type="hidden" asp-for="Id"/>
+    <input type="hidden" asp-for="Publicado"/>
+    <input type="hidden" asp-for="DataPublicacao"/>
+    <label asp-for="Titulo"></label>
+    <input asp-for="Titulo"/>
+    <span asp-validation-for="Titulo"></span>
+    <label asp-for="Resumo"></label>
+    <input asp-for="Resumo"/>
+    <span asp-validation-for="Resumo"></span>
+    <label asp-for="Categoria"></label>
+    <input asp-for="Categoria"/>
+    <span asp-validation-for="Categoria"></span>
+    <button type="submit">Cadastrar</button>
+  </form>
+  <script src="~/lib/jquery/dist/jquery.js"></script>
+  <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+  <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 </body>
 </html>
