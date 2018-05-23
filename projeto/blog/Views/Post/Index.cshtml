@@ -1,8 +1,10 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model IList<blog.Models.Post>
 <html>
 <head></head>
 <body>
     <h2>Lista de Posts</h2>
+    @Html.ActionLink("Novo Post", "Novo")
     <table>
         <thead>
             <tr>
@@ -16,7 +18,9 @@
         <tbody>
             @foreach(var post in Model) {
                 <tr>
-                    <td><a href="/Post/Visualiza/@post.Id">@post.Titulo</a></td>
+                    <td>
+                        @Html.ActionLink(post.Titulo, "Visualiza", new { id = post.Id})
+                    </td>
                     <td>@post.Resumo</td>
                     <td>@post.Categoria</td>
                     <td>
@@ -27,8 +31,8 @@
                         }
                     </td>
                     <td>
-                        <a href="/Post/RemovePost/@post.Id">Remover</a>
-                        <a href="/Post/PublicaPost/@post.Id">Publicar</a>
+                        <a asp-action="RemovePost" asp-route-id="@post.Id">Remover</a>
+                        <a asp-controller="Post" asp-action="PublicaPost" asp-route-id="@post.Id">Publicar</a>
                     </td>
                 </tr>
             }

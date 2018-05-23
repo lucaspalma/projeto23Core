@@ -35,6 +35,7 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
             return View("Index", posts);
         }
 
+        [Route("/post/removendo/{id}")]
         [HttpGet]
         public IActionResult RemovePost(int id) {
             PostDAO dao = new PostDAO();
