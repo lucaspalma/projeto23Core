@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using blog.Infra;
 using blog.Models;
@@ -18,6 +19,12 @@ namespace blog.DAO
             return contexto.Usuarios
                         .Where(usuario => usuario.Nome.Equals(login) && usuario.Senha.Equals(senha))
                         .FirstOrDefault<Usuario>();
+        }
+
+        public void Adiciona(Usuario usuario)
+        {
+            contexto.Usuarios.Add(usuario);
+            contexto.SaveChanges();
         }
     }
 }

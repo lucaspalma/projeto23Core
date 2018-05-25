@@ -39,5 +39,27 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
             }
             return View("Login", model);
         } 
+
+        [HttpGet]
+        public ActionResult Novo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Cadastra(RegistroViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Usuario usuario = new Usuario() {
+                    Nome = model.LoginName,
+                    Email = model.Email,
+                    Senha = model.Senha
+                };
+                dao.Adiciona(usuario);
+                return RedirectToAction("Login");
+            }
+            return View("Novo", model);
+        }        
     }
 }
