@@ -1,21 +1,13 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace blog.Models
 {
-    public class Usuario
+    public class Usuario :  IdentityUser
     {
-        public int Id { get; set; }
-
-    	[Required]
-    	public string Nome { get; set; }
-
-        [Required]
-        public string Email { get; set; }
-
-        [Required] 
-        public string Senha { get; set; }
-
+        public DateTime? UltimoLogin { get; set; } 
         public IList<Post> Posts { get; set; }
     }
 }

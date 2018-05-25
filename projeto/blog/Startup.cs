@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using blog.DAO;
 using blog.Infra;
+using blog.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +34,14 @@ namespace blog
             );
 
             services.AddTransient<PostDAO>();
-            services.AddTransient<UsuarioDAO>();
+
+            services.AddIdentity<Usuario, IdentityRole>()
+                    .AddEntityFrameworkStores<BlogContext>()
+                    .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options => {
+                options.LoginPath = "/Usuario/Login";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +59,7 @@ namespace blog
             app.UseSession();
 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

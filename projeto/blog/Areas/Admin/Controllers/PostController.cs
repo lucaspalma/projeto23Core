@@ -5,18 +5,23 @@ using blog.Infra;
 using blog.DAO;
 using blog.Filtro;
 using blog.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
 {
     [Area("Admin")]
-    [AutorizacaoFilter]
+    [Authorize]
     public class PostController : Controller
     {
         private readonly PostDAO dao;
+        private readonly UserManager<Usuario> manager;
 
-        public PostController(PostDAO dao)
+        public PostController(PostDAO dao, UserManager<Usuario> manager)
         {
             this.dao = dao;
+            this.manager = manager;
         }
 
         public IActionResult Index() {
@@ -29,9 +34,9 @@ namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Adiciona(Post post) {
+        public async Task<IActionResult> Adiciona(Post post) {
             if(ModelState.IsValid) {
-                Usuario usuario = HttpContext.Session.Get<Usuario>("usuario");
+                Usuario usuario = await manager.GetUserAsync(User);
                 dao.Adiciona(post, usuario);
                 return RedirectToAction("Index");
             }

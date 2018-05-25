@@ -5,16 +5,20 @@ using blog.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace projetos.dotnet.blogCore.projeto.blog.Controllers
 {
     public class UsuarioController : Controller
     {
-        private readonly UsuarioDAO dao;
+        private readonly UserManager<Usuario> manager;
+        private readonly SignInManager<Usuario> signInManager;
 
-        public UsuarioController(UsuarioDAO dao)
+        public UsuarioController(UserManager<Usuario> manager, SignInManager<Usuario> signInManager)
         {
-            this.dao = dao;
+            this.manager = manager;
+            this.signInManager = signInManager;
         }
     
        [HttpGet]
@@ -24,13 +28,12 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
         }
 
         [HttpPost]
-        public ActionResult Autentica(LoginViewModel model)
+        public async Task<IActionResult> Autentica(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                Usuario usuario = dao.Busca(model.LoginName, model.Password);
-                if(usuario != null) {
-                    HttpContext.Session.Set<Usuario>("usuario", usuario);
+                var result = await signInManager.PasswordSignInAsync(model.LoginName, model.Password, true, false);
+                if(result.Succeeded) {
                     return RedirectToAction("Index", "Post", new { area = "Admin" });
                 }
                 else {
@@ -47,17 +50,23 @@ namespace projetos.dotnet.blogCore.projeto.blog.Controllers
         }
 
         [HttpPost]
-        public ActionResult Cadastra(RegistroViewModel model)
+        public async Task<IActionResult> Cadastra(RegistroViewModel model)
         {
             if (ModelState.IsValid)
             {
                 Usuario usuario = new Usuario() {
-                    Nome = model.LoginName,
-                    Email = model.Email,
-                    Senha = model.Senha
+                    UserName = model.LoginName,
+                    Email = model.Email
                 };
-                dao.Adiciona(usuario);
-                return RedirectToAction("Login");
+                var result = await manager.CreateAsync(usuario, model.Senha);
+                if(result.Succeeded) {
+                    return RedirectToAction("Login");
+                }
+                else {
+                    foreach(var erro in result.Errors) {
+                        ModelState.AddModelError("", erro.Description);
+                    }
+                }
             }
             return View("Novo", model);
         }        
