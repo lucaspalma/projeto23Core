@@ -25,6 +25,17 @@ namespace blog.DAO
             }
         }
 
+        public IList<Post> BuscaPeloTermo(string termo)
+        {
+            using (var contexto = new BlogContext())
+            {
+                return contexto.Posts
+                            .Where(p => (p.Publicado) && (p.Titulo.Contains(termo) || p.Resumo.Contains(termo)))
+                            .Select(p => p)
+                            .ToList();
+            }
+        }
+
         public void Adiciona(Post post)
         {
             using (BlogContext contexto = new BlogContext())

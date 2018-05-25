@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using blog.DAO;
+using blog.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace blog.Controllers
@@ -14,6 +15,13 @@ namespace blog.Controllers
         {
             PostDAO dao = new PostDAO();
             return View(dao.ListaPublicados());
+        }
+
+        public ActionResult Busca(string termo)
+        {
+            PostDAO dao = new PostDAO();
+            IList<Post> posts = dao.BuscaPeloTermo(termo);
+            return View("Index", posts);
         }
 
     }
