@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using blog.Models;
 using blog.Infra;
 using blog.DAO;
+using blog.Filtro;
 
 namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
 {
     [Area("Admin")]
+    [AutorizacaoFilter]
     public class PostController : Controller
     {
         private readonly PostDAO dao;
