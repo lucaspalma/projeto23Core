@@ -4,8 +4,9 @@ using blog.Models;
 using blog.Infra;
 using blog.DAO;
 
-namespace projetos.dotnet.blogCore.projeto.blog.Controllers
+namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
 {
+    [Area("Admin")]
     public class PostController : Controller
     {
 
