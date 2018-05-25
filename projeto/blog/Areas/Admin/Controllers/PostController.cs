@@ -9,21 +9,25 @@ namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
     [Area("Admin")]
     public class PostController : Controller
     {
+        private readonly PostDAO dao;
+
+        public PostController(PostDAO dao)
+        {
+            this.dao = dao;
+        }
 
         public IActionResult Index() {
-            PostDAO dao = new PostDAO();
             IList<Post> posts = dao.Lista();
             return View(posts);
         }
 
         public IActionResult Novo() {
-            return View(new Post());
+            return View();
         }
 
         [HttpPost]
         public IActionResult Adiciona(Post post) {
             if(ModelState.IsValid) {
-                PostDAO dao = new PostDAO();
                 dao.Adiciona(post);
                 return RedirectToAction("Index");
             }
@@ -31,7 +35,6 @@ namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
         }
 
         public IActionResult Categoria([Bind(Prefix="id")] string categoria) {
-            PostDAO dao = new PostDAO();
             IList<Post> posts = dao.FiltraPorCategoria(categoria);
             return View("Index", posts);
         }
@@ -39,21 +42,18 @@ namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
         [Route("/post/removendo/{id}")]
         [HttpGet]
         public IActionResult RemovePost(int id) {
-            PostDAO dao = new PostDAO();
             dao.Remove(id);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult Visualiza(int id) {
-            PostDAO dao = new PostDAO();
             return View(dao.BuscaPorId(id));
         }
 
         [HttpPost]
         public IActionResult EditaPost(Post post) {
             if(ModelState.IsValid) {
-                PostDAO dao = new PostDAO();
                 dao.Atualiza(post);
                 return RedirectToAction("Index");
             }
@@ -62,7 +62,6 @@ namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
 
         [HttpGet]
         public IActionResult PublicaPost(int id) {
-            PostDAO dao = new PostDAO();
             dao.Publica(id);
             return RedirectToAction("Index");
         }
@@ -70,7 +69,6 @@ namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
         [HttpPost]
         public ActionResult CategoriaAutocomplete(string termoDigitado)
         {
-            PostDAO dao = new PostDAO();
             var model = dao.ListaCategoriasQueContemTermo(termoDigitado);
             return Json(model);
         }

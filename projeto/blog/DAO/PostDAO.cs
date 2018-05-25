@@ -10,92 +10,70 @@ namespace blog.DAO
 {
     public class PostDAO
     {
+        private readonly BlogContext contexto;
+
+        public PostDAO(BlogContext contexto)
+        {
+            this.contexto = contexto;
+        }
 
         public IList<Post> Lista() {
-            using(BlogContext contexto = new BlogContext()) {
-                return contexto.Posts.ToList();
-            }
+            return contexto.Posts.ToList();
         }
 
         public IList<Post> ListaPublicados()
         {
-            using (BlogContext contexto = new BlogContext())
-            {
-                return contexto.Posts.Where(p => p.Publicado).OrderByDescending(p => p.DataPublicacao).ToList();
-            }
+            return contexto.Posts.Where(p => p.Publicado).OrderByDescending(p => p.DataPublicacao).ToList();
         }
 
         public IList<Post> BuscaPeloTermo(string termo)
         {
-            using (var contexto = new BlogContext())
-            {
-                return contexto.Posts
-                            .Where(p => (p.Publicado) && (p.Titulo.Contains(termo) || p.Resumo.Contains(termo)))
-                            .Select(p => p)
-                            .ToList();
-            }
+            return contexto.Posts
+                        .Where(p => (p.Publicado) && (p.Titulo.Contains(termo) || p.Resumo.Contains(termo)))
+                        .Select(p => p)
+                        .ToList();
         }
 
         public void Adiciona(Post post)
         {
-            using (BlogContext contexto = new BlogContext())
-            {
-                contexto.Posts.Add(post);
-                contexto.SaveChanges();
-            }
+            contexto.Posts.Add(post);
+            contexto.SaveChanges();
         }
 
         public IList<Post> FiltraPorCategoria(string categoria) {
-            using(BlogContext contexto = new BlogContext()) {
-                return contexto.Posts.Where(post => post.Categoria.Contains(categoria)).ToList();
-            }
+            return contexto.Posts.Where(post => post.Categoria.Contains(categoria)).ToList();
         }
 
         public Post BuscaPorId(int id) {
-            using (BlogContext contexto = new BlogContext())
-            {
-                return contexto.Posts.Find(id);
-            }
+            return contexto.Posts.Find(id);
         }
 
         public void Remove(int id) {
-            using (BlogContext contexto = new BlogContext())
-            {
-                Post post = contexto.Posts.Find(id);
-                contexto.Posts.Remove(post);
-                contexto.SaveChanges();
-            }
+            Post post = contexto.Posts.Find(id);
+            contexto.Posts.Remove(post);
+            contexto.SaveChanges();
         }
 
         public void Atualiza(Post post) {
-            using (BlogContext contexto = new BlogContext())
-            {
-                contexto.Entry(post).State = EntityState.Modified;
-                contexto.SaveChanges();
-            }
+            contexto.Entry(post).State = EntityState.Modified;
+            contexto.SaveChanges();
         }
 
         public void Publica(int id)
         {
-            using (BlogContext contexto = new BlogContext())
-            {
-                Post post = contexto.Posts.Find(id);
-                post.DataPublicacao = DateTime.Now;
-                post.Publicado = true;
-                contexto.SaveChanges();
-            }
+            Post post = contexto.Posts.Find(id);
+            post.DataPublicacao = DateTime.Now;
+            post.Publicado = true;
+            contexto.SaveChanges();
         }
 
         public IList<string> ListaCategoriasQueContemTermo(string termo)
         {
-            using (var contexto = new BlogContext())
-            {
-                return contexto.Posts
-                            .Where(p => p.Categoria.Contains(termo))
-                            .Select(p => p.Categoria)
-                            .Distinct()
-                            .ToList();
-            }
+            return contexto.Posts
+                        .Where(p => p.Categoria.Contains(termo))
+                        .Select(p => p.Categoria)
+                        .Distinct()
+                        .ToList();
         }
     }
 }
