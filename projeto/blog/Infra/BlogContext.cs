@@ -12,5 +12,7 @@ namespace blog.Infra
 
         public DbSet<Post> Posts { get; set; }
 
+        public DbSet<Usuario> Usuarios { get; set; }
+
     }
 }

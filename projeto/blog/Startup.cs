@@ -26,11 +26,13 @@ namespace blog
         {
             services.AddMvc();
 
+            services.AddSession();
             services.AddDbContext<BlogContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("Blog"))
             );
 
             services.AddTransient<PostDAO>();
+            services.AddTransient<UsuarioDAO>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +46,8 @@ namespace blog
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseSession();
 
             app.UseStaticFiles();
 
