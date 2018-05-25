@@ -4,6 +4,7 @@ using blog.Models;
 using blog.Infra;
 using blog.DAO;
 using blog.Filtro;
+using blog.Extensions;
 
 namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
 {
@@ -30,7 +31,8 @@ namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
         [HttpPost]
         public IActionResult Adiciona(Post post) {
             if(ModelState.IsValid) {
-                dao.Adiciona(post);
+                Usuario usuario = HttpContext.Session.Get<Usuario>("usuario");
+                dao.Adiciona(post, usuario);
                 return RedirectToAction("Index");
             }
             return View("Novo", post);
