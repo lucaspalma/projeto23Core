@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using blog.Infra;
 using blog.Models;
 using MySql.Data.MySqlClient;
@@ -11,10 +12,10 @@ namespace blog.DAO
 
         public IList<Post> Lista() {
             IList<Post> posts = new List<Post>();
-            using(MySqlConnection connection = ConnectionFactory.CriaConexaoAberta()) {
-                MySqlCommand comando = connection.CreateCommand();
+            using(SqlConnection connection = ConnectionFactory.CriaConexaoAberta()) {
+                SqlCommand comando = connection.CreateCommand();
                 comando.CommandText = "select * from Posts";
-                MySqlDataReader leitor = comando.ExecuteReader();
+                SqlDataReader leitor = comando.ExecuteReader();
                 while(leitor.Read()) {
                     Post post = new Post() {
                         Id = Convert.ToInt32(leitor["id"]),
