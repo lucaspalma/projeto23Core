@@ -18,14 +18,26 @@ namespace projetos.dotnet.blogCore.projeto.blog.Areas.Api.Controllers
         }
 
         [Route("list")]
+        [HttpGet]
         public IActionResult GetAllPosts() {
             IList<Post> posts = dao.Lista();
             return Ok(posts);
         }
 
         [Route("{id}")]
+        [HttpGet]
         public IActionResult GetById(int id) {
             return Ok(dao.BuscaPorId(id));
+        }
+
+        [Route("new")]
+        [HttpPost]
+        public IActionResult InsertPosts([FromBody] Post post) {
+            if(ModelState.IsValid) {
+                dao.Adiciona(post);
+                return CreatedAtAction("GetById", new {id = post.Id}, post);
+            }
+            return BadRequest(ModelState);
         }
 
     }
