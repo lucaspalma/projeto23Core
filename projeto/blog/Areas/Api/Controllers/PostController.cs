@@ -54,5 +54,15 @@ namespace projetos.dotnet.blogCore.projeto.blog.Areas.Api.Controllers
             return BadRequest(ModelState);
         }
 
+        [Route("{id}")]
+        [HttpDelete]
+        public IActionResult DeletePost(int id) {
+            if(dao.BuscaPorId(id) == null) {
+                return NotFound();
+            }
+            dao.Remove(id);
+            return NoContent();
+        }
+
     }
 }
