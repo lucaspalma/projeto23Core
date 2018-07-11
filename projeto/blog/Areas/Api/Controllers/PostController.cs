@@ -40,5 +40,19 @@ namespace projetos.dotnet.blogCore.projeto.blog.Areas.Api.Controllers
             return BadRequest(ModelState);
         }
 
+        [Route("{id}")]
+        [HttpPut]
+        public IActionResult UpdatePosts(int id, [FromBody] Post post) {
+            if(dao.BuscaPorId(id) == null) {
+                return NotFound();
+            }
+            if(ModelState.IsValid) {
+                post.Id = id;
+                dao.Atualiza(post);
+                return NoContent();
+            }
+            return BadRequest(ModelState);
+        }
+
     }
 }
