@@ -23,5 +23,10 @@ namespace projetos.dotnet.blogCore.projeto.blog.Areas.Api.Controllers
             return Ok(posts);
         }
 
+        [Route("{id}")]
+        public IActionResult GetById(int id) {
+            return Ok(dao.BuscaPorId(id));
+        }
+
     }
 }
