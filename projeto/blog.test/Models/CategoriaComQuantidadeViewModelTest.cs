@@ -72,5 +72,18 @@ namespace blog.test.Models
             Assert.Equal(1, categoriaComQuantidade.GetQuantidadeDePostsDa("Música"));
         }
 
+        [Fact]
+        public void aListaDeCategoriasDeveriaVirEmOrdemAlfabetica()
+        {
+            List<Post> posts = new List<Post>() { serieSimpsons, filmeReiLeao, musicaRockYou, filmeET };
+            CategoriaComQuantidadeViewModel categoriaComQuantidade = new CategoriaComQuantidadeViewModel(posts);
+            Assert.Contains("Filme", categoriaComQuantidade.GetCategorias());
+            Assert.Collection(categoriaComQuantidade.GetCategorias(), 
+                categoria => Assert.Equal("Filme", categoria),
+                categoria => Assert.Equal("Música", categoria),
+                categoria => Assert.Equal("Série", categoria)
+            );
+        }
+
     }
 }
