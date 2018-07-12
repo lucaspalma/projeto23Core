@@ -25,7 +25,9 @@ namespace blog.Models
         }
 
         public IList<string> GetCategorias() {
-            return categoriaPorQuantidade.Keys.ToList();
+            List<string> categorias = categoriaPorQuantidade.Keys.ToList();
+            categorias.Sort();
+            return categorias;
         }
 
         public int GetQuantidadeDePostsDa(string categoria) {
