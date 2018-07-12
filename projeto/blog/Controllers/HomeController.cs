@@ -28,5 +28,10 @@ namespace blog.Controllers
             return View("Index", posts);
         }
 
+        public IActionResult Categoria([Bind(Prefix="id")] string categoria) {
+            IList<Post> posts = dao.FiltraPorCategoria(categoria);
+            return View("Index", posts);
+        }
+
     }
 }

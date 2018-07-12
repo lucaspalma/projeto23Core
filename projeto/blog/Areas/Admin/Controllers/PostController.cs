@@ -34,11 +34,6 @@ namespace projetos.dotnet.blogCore.projeto.blog.areas.admin.Controllers
             return View("Novo", post);
         }
 
-        public IActionResult Categoria([Bind(Prefix="id")] string categoria) {
-            IList<Post> posts = dao.FiltraPorCategoria(categoria);
-            return View("Index", posts);
-        }
-
         [Route("/post/removendo/{id}")]
         [HttpGet]
         public IActionResult RemovePost(int id) {
