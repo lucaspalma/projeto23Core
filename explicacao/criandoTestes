@@ -1,0 +1,14 @@
+Criando solução
+	dotnet new sln
+Adicionando projeto na solução 
+	dotnet sln projeto.sln add blog
+	
+Criando projeto de teste
+	dotnet new xunit --name blog.test
+	dotnet sln projeto.sln add blog.test
+	cd blog.test
+	dotnet add reference ../blog/blog.csproj 
+	
+Rodando teste cli
+	dotnet test
+
