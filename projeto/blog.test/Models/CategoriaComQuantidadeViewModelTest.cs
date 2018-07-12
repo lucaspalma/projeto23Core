@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using blog.Models;
+using FluentAssertions;
 using Xunit;
 
 namespace blog.test.Models
@@ -26,7 +27,7 @@ namespace blog.test.Models
         {
             List<Post> posts = new List<Post>();
             CategoriaComQuantidadeViewModel categoriaComQuantidade = new CategoriaComQuantidadeViewModel(posts);
-            Assert.Empty(categoriaComQuantidade.GetCategorias());
+            categoriaComQuantidade.GetCategorias().Should().BeEmpty();
         }
 
         [Fact]
@@ -34,8 +35,8 @@ namespace blog.test.Models
         {
             List<Post> posts = new List<Post>() { filmeReiLeao };
             CategoriaComQuantidadeViewModel categoriaComQuantidade = new CategoriaComQuantidadeViewModel(posts);
-            Assert.Single(categoriaComQuantidade.GetCategorias(), "Filme");
-            Assert.Equal(1, categoriaComQuantidade.GetQuantidadeDePostsDa("Filme"));
+            categoriaComQuantidade.GetCategorias().Should().ContainSingle("Filme");
+            categoriaComQuantidade.GetQuantidadeDePostsDa("Filme").Should().Be(1);
         }
 
         [Fact]
@@ -43,12 +44,10 @@ namespace blog.test.Models
         {
             List<Post> posts = new List<Post>() { filmeReiLeao, musicaRockYou, serieSimpsons };
             CategoriaComQuantidadeViewModel categoriaComQuantidade = new CategoriaComQuantidadeViewModel(posts);
-            Assert.Contains("Filme", categoriaComQuantidade.GetCategorias());
-            Assert.Contains("Música", categoriaComQuantidade.GetCategorias());
-            Assert.Contains("Série", categoriaComQuantidade.GetCategorias());
-            Assert.Equal(1, categoriaComQuantidade.GetQuantidadeDePostsDa("Filme"));
-            Assert.Equal(1, categoriaComQuantidade.GetQuantidadeDePostsDa("Música"));
-            Assert.Equal(1, categoriaComQuantidade.GetQuantidadeDePostsDa("Série"));
+            categoriaComQuantidade.GetCategorias().Should().BeEquivalentTo("Filme", "Música", "Série");
+            categoriaComQuantidade.GetQuantidadeDePostsDa("Filme").Should().Be(1);
+            categoriaComQuantidade.GetQuantidadeDePostsDa("Música").Should().Be(1);
+            categoriaComQuantidade.GetQuantidadeDePostsDa("Série").Should().Be(1);
         }
 
 
@@ -57,8 +56,8 @@ namespace blog.test.Models
         {
             List<Post> posts = new List<Post>() { filmeReiLeao, filmeToyStory, filmeET };
             CategoriaComQuantidadeViewModel categoriaComQuantidade = new CategoriaComQuantidadeViewModel(posts);
-            Assert.Single(categoriaComQuantidade.GetCategorias(), "Filme");  
-            Assert.Equal(3, categoriaComQuantidade.GetQuantidadeDePostsDa("Filme"));
+            categoriaComQuantidade.GetCategorias().Should().BeEquivalentTo("Filme");  
+            categoriaComQuantidade.GetQuantidadeDePostsDa("Filme").Should().Be(3);
         }
 
         [Fact]
@@ -66,10 +65,9 @@ namespace blog.test.Models
         {
             List<Post> posts = new List<Post>() { filmeReiLeao, musicaRockYou, filmeET };
             CategoriaComQuantidadeViewModel categoriaComQuantidade = new CategoriaComQuantidadeViewModel(posts);
-            Assert.Contains("Filme", categoriaComQuantidade.GetCategorias());
-            Assert.Contains("Música", categoriaComQuantidade.GetCategorias());
-            Assert.Equal(2, categoriaComQuantidade.GetQuantidadeDePostsDa("Filme"));
-            Assert.Equal(1, categoriaComQuantidade.GetQuantidadeDePostsDa("Música"));
+            categoriaComQuantidade.GetCategorias().Should().BeEquivalentTo("Filme", "Música");
+            categoriaComQuantidade.GetQuantidadeDePostsDa("Filme").Should().Be(2);
+            categoriaComQuantidade.GetQuantidadeDePostsDa("Música").Should().Be(1);
         }
 
         [Fact]
@@ -77,12 +75,7 @@ namespace blog.test.Models
         {
             List<Post> posts = new List<Post>() { serieSimpsons, filmeReiLeao, musicaRockYou, filmeET };
             CategoriaComQuantidadeViewModel categoriaComQuantidade = new CategoriaComQuantidadeViewModel(posts);
-            Assert.Contains("Filme", categoriaComQuantidade.GetCategorias());
-            Assert.Collection(categoriaComQuantidade.GetCategorias(), 
-                categoria => Assert.Equal("Filme", categoria),
-                categoria => Assert.Equal("Música", categoria),
-                categoria => Assert.Equal("Série", categoria)
-            );
+            categoriaComQuantidade.GetCategorias().Should().BeInAscendingOrder();
         }
 
     }
