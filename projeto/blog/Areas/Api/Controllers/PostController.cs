@@ -7,6 +7,7 @@ namespace projetos.dotnet.blogCore.projeto.blog.Areas.Api.Controllers
 {
     [Area("Api")]
     [Route("/api/[controller]")]
+    [ApiController]
     public class PostController : ControllerBase
     {
         
@@ -33,11 +34,8 @@ namespace projetos.dotnet.blogCore.projeto.blog.Areas.Api.Controllers
         [Route("new")]
         [HttpPost]
         public IActionResult InsertPosts([FromBody] Post post) {
-            if(ModelState.IsValid) {
-                dao.Adiciona(post);
-                return CreatedAtAction("GetById", new {id = post.Id}, post);
-            }
-            return BadRequest(ModelState);
+            dao.Adiciona(post);
+            return CreatedAtAction("GetById", new {id = post.Id}, post);
         }
 
         [Route("{id}")]
@@ -46,12 +44,9 @@ namespace projetos.dotnet.blogCore.projeto.blog.Areas.Api.Controllers
             if(dao.BuscaPorId(id) == null) {
                 return NotFound();
             }
-            if(ModelState.IsValid) {
-                post.Id = id;
-                dao.Atualiza(post);
-                return NoContent();
-            }
-            return BadRequest(ModelState);
+            post.Id = id;
+            dao.Atualiza(post);
+            return NoContent();
         }
 
         [Route("{id}")]
