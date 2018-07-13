@@ -13,13 +13,14 @@ namespace blog.Models
             categoriaPorQuantidade = new Dictionary<string, int>();
             foreach(Post post in posts) 
             {
-                if(categoriaPorQuantidade.ContainsKey(post.Categoria)) {
-                    int quantidade = categoriaPorQuantidade[post.Categoria];
-                    categoriaPorQuantidade.Remove(post.Categoria);
-                    categoriaPorQuantidade.Add(post.Categoria, quantidade + 1);
+                string categoria = post.Categoria.Trim();
+                if(categoriaPorQuantidade.ContainsKey(categoria)) {
+                    int quantidade = categoriaPorQuantidade[categoria];
+                    categoriaPorQuantidade.Remove(categoria);
+                    categoriaPorQuantidade.Add(categoria, quantidade + 1);
                 }
                 else {
-                    categoriaPorQuantidade.Add(post.Categoria, 1);
+                    categoriaPorQuantidade.Add(categoria, 1);
                 }
             }
         }

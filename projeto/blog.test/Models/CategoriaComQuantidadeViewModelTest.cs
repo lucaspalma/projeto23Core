@@ -78,5 +78,16 @@ namespace blog.test.Models
             categoriaComQuantidade.GetCategorias().Should().BeInAscendingOrder();
         }
 
+        [Fact]
+        public void aListaDeCategoriasDeveIgnorarEspacosAEsquerdaEADireitaDoNomeQuandoAgrupar()
+        {
+            Post filmeMulherMaravilha = new Post(){ Titulo = "Mulher maravilha", Resumo = "Filme de origem da princesa Diana", Categoria = "Filme" };
+            Post filmeSenhoAneis = new Post(){ Titulo = "Senho dos anéis", Resumo = "As duas torres", Categoria = " Filme " };
+            List<Post> posts = new List<Post>() { filmeMulherMaravilha, filmeSenhoAneis };
+            CategoriaComQuantidadeViewModel categoriaComQuantidade = new CategoriaComQuantidadeViewModel(posts);
+            Assert.Contains("Filme", categoriaComQuantidade.GetCategorias());
+            Assert.Equal(2, categoriaComQuantidade.GetQuantidadeDePostsDa("Filme"));
+        }
+
     }
 }

@@ -1,0 +1,4 @@
+insert into Posts(Titulo, Resumo, Categoria, DataPublicacao, Publicado) values ('Matrix', 'Clássico das irmãs Wachowski', 'Filme', '2000-05-16 20:14:22.184553', true);
+insert into Posts(Titulo, Resumo, Categoria, DataPublicacao, Publicado) values ('Senho dos anéis', 'As duas torres', 'Filme', '2002-12-27 23:59:22.184553', true);
+insert into Posts(Titulo, Resumo, Categoria, DataPublicacao, Publicado) values ('Harry Potter', 'Relíquias da morte parte 1', 'Filme ', '2010-11-20 13:23:22.184553', true);
+insert into Posts(Titulo, Resumo, Categoria, DataPublicacao, Publicado) values ('Mulher maravilha', 'Filme de origem da princesa Diana', 'Filme', '2017-06-02 18:40:22.184553', true);
