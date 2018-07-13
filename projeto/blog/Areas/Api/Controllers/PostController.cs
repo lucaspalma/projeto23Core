@@ -3,10 +3,10 @@ using blog.DAO;
 using blog.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace projetos.dotnet.blogCore.projeto.blog.Areas.Api.Controllers
+namespace Blog.Areas.Api.Controllers
 {
     [Area("Api")]
-    [Route("/api/[controller]")]
+    [Route("/api/post")]
     [ApiController]
     public class PostController : ControllerBase
     {
